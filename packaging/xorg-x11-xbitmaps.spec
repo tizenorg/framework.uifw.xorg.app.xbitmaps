@@ -1,7 +1,7 @@
-Name:       xorg-data-xbitmaps
+Name:       xorg-x11-xbitmaps
 Summary:    X.Org X11 application bitmaps
 Version:    1.1.1
-Release:    2
+Release:    1
 Group:      User Interface/X
 License:    MIT
 BuildArch:  noarch
@@ -20,18 +20,25 @@ X.Org X11 application bitmaps
 
 
 %build
+# hack to move the pc file
+#sed -i 's/^libdir.*//' *.pc.in
+
 %reconfigure --disable-static \
     --libdir=%{_datadir}
 
 make %{?jobs:-j%jobs}
 
 %install
+rm -rf %{buildroot}
+
 %make_install
 
 
 
 
 %files
+%defattr(-,root,root,-)
+#%doc
 %{_includedir}/X11/bitmaps
 %{_datadir}/pkgconfig/xbitmaps.pc
 
