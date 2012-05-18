@@ -16,7 +16,7 @@ X.Org X11 application bitmaps
 
 
 %prep
-%setup -q -n xbitmaps-%{version}
+%setup -q -n %{name}-%{version}
 
 
 %build
