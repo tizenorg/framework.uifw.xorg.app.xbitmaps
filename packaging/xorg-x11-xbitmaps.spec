@@ -1,45 +1,38 @@
-Name:       xorg-x11-xbitmaps
-Summary:    X.Org X11 application bitmaps
-Version:    1.1.1
-Release:    1
-Group:      User Interface/X
-License:    MIT
-BuildArch:  noarch
-URL:        http://www.x.org
-Source0:    ftp://ftp.x.org/pub/individual/data/xbitmaps-%{version}.tar.gz
-BuildRequires: pkgconfig(xorg-macros)
-Provides:   xbitmaps
-Provides:   xbitmaps-devel
+Summary: X.Org X11 application bitmaps
+Name: xorg-x11-xbitmaps
+Version: 1.1.1
+Release: 3
+License: MIT
+Group: User Interface/X
+URL: http://www.x.org
+BuildArch: noarch
+
+Source: %{name}-%{version}.tar.gz
+
+BuildRequires: pkgconfig
+BuildRequires: xorg-x11-xutils-dev
+Provides: xbitmaps
 
 %description
 X.Org X11 application bitmaps
 
-
 %prep
-%setup -q -n xbitmaps-%{version}
-
+%setup -q
 
 %build
-# hack to move the pc file
-#sed -i 's/^libdir.*//' *.pc.in
 
 %reconfigure --disable-static \
     --libdir=%{_datadir}
 
-make %{?jobs:-j%jobs}
+make %{?jobs:-j%jobs} %{?_smp_mflags}
 
 %install
-rm -rf %{buildroot}
+make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 
-%make_install
-
-
-
+%remove_docs
 
 %files
 %defattr(-,root,root,-)
-#%doc
-%{_includedir}/X11/bitmaps
+#%doc COPYING
+%{_includedir}/X11
 %{_datadir}/pkgconfig/xbitmaps.pc
-
-

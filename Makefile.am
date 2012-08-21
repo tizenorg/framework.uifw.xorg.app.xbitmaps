@@ -1,8 +1,5 @@
-#soolim: change the pc file dir
-pkgconfigdir = $(libdir)/pkgconfig
+pkgconfigdir = $(datadir)/pkgconfig
 pkgconfig_DATA = xbitmaps.pc
-#pkgconfigdir = $(datadir)/pkgconfig
-#pkgconfig_DATA = xbitmaps.pc
 
 MAINTAINERCLEANFILES = ChangeLog INSTALL
 
