@@ -27,12 +27,16 @@ X.Org X11 application bitmaps
 make %{?jobs:-j%jobs} %{?_smp_mflags}
 
 %install
+rm -rf $RPM_BUILD_ROOT
+mkdir -p %{buildroot}/usr/share/license
+cp -af COPYING %{buildroot}/usr/share/license/%{name}
 make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 
 %remove_docs
 
 %files
 %defattr(-,root,root,-)
+/usr/share/license/%{name}
 #%doc COPYING
 %{_includedir}/X11
 %{_datadir}/pkgconfig/xbitmaps.pc
